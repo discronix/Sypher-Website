@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LucideShieldCheck, LucideUsers, LucideTicket, LucideShieldAlert, LucideMusic, LucideUserCog, LucideClock } from "lucide-react";
@@ -80,14 +81,14 @@ const Index = () => {
                 <h2 className="text-3xl font-bold mb-8">Make your server smarter with Soward</h2>
                 <div className="flex justify-center gap-4">
                   <a
-                    href="https://discord.com/oauth2/authorize?client_id=1013771497157972008&permissions=8&scope=bot"
+                    href="https://dsc.gg/sypher-invite"
                     target="_blank"
                     className="btn-primary"
                   >
                     Invite Soward Now
                   </a>
                   <a
-                    href="https://discord.gg/soward"
+                    href="https://dsc.gg/sypher-support"
                     target="_blank"
                     className="btn-primary"
                   >
@@ -202,7 +203,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="glass-card mt-16 py-6">
         <p className="text-center text-gray-600">
-          © 2024 Soward | Developed with passion by Prince
+          © 2024 Soward | Developed with passion by Doremxn
         </p>
       </footer>
     </div>
