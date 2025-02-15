@@ -1,7 +1,7 @@
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LucideShieldCheck, LucideUsers, LucideTicket, LucideShieldAlert, LucideMusic, LucideUserCog, LucideClock } from "lucide-react";
+import Commands from "@/components/Commands";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("home");
@@ -51,7 +51,7 @@ const Index = () => {
       {/* Navigation */}
       <nav className="sticky top-0 z-50 glass-card py-4">
         <div className="container px-4 mx-auto flex justify-center space-x-4">
-          {["home", "premium", "terms"].map((section) => (
+          {["home", "commands", "premium", "terms"].map((section) => (
             <button
               key={section}
               onClick={() => setActiveSection(section)}
@@ -76,7 +76,6 @@ const Index = () => {
             className="py-16"
           >
             <div className="container px-4 mx-auto">
-              {/* Hero */}
               <div className="text-center mb-16">
                 <h2 className="text-3xl font-bold mb-8">Make your server smarter with Soward</h2>
                 <div className="flex justify-center gap-4">
@@ -96,8 +95,6 @@ const Index = () => {
                   </a>
                 </div>
               </div>
-
-              {/* Features Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {features.map((feature, index) => (
                   <motion.div
@@ -114,6 +111,17 @@ const Index = () => {
                 ))}
               </div>
             </div>
+          </motion.section>
+        )}
+
+        {activeSection === "commands" && (
+          <motion.section
+            key="commands"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+          >
+            <Commands />
           </motion.section>
         )}
 
