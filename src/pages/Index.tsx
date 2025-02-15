@@ -27,7 +27,7 @@ const Index = () => {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5 }}
             src="https://images-ext-1.discordapp.net/external/VALP_6NuCDjaixXxwuqz5QM6hZ-nZZQosglbOuh9IXM/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1013771497157972008/895bc9e1e03c0bb00fef75f61444f919.png"
-            alt="Soward Logo"
+            alt="Sypher Logo"
             className="w-32 h-32 mx-auto rounded-full border-4 border-white shadow-xl animate-float"
           />
           <motion.h1
@@ -36,7 +36,7 @@ const Index = () => {
             transition={{ delay: 0.2 }}
             className="mt-8 text-4xl md:text-5xl font-bold text-gradient"
           >
-            Soward - Your Ultimate Discord Bot
+            Sypher - Your Ultimate Discord Bot
           </motion.h1>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
@@ -78,14 +78,14 @@ const Index = () => {
           >
             <div className="container px-4 mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-3xl font-bold mb-8">Make your server smarter with Soward</h2>
+                <h2 className="text-3xl font-bold mb-8">Make your server smarter with Sypher</h2>
                 <div className="flex justify-center gap-4">
                   <a
                     href="https://dsc.gg/sypher-invite"
                     target="_blank"
                     className="btn-primary"
                   >
-                    Invite Soward Now
+                    Invite Sypher Now
                   </a>
                   <a
                     href="https://dsc.gg/sypher-support"
@@ -203,7 +203,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="glass-card mt-16 py-6">
         <p className="text-center text-gray-600">
-          © 2024 Soward | Developed with passion by Doremxn
+          © 2024 Sypher | Developed with passion by Doremxn
         </p>
       </footer>
     </div>
