@@ -10,11 +10,12 @@ import {
   LucideMic,
   LucideGift,
   LucideSettings,
+  LucidePlus,
 } from "lucide-react";
 
 interface CommandCategory {
   title: string;
-  icon: React.ComponentType;
+  icon: React.ComponentType<{ className?: string }>;
   commands: string[];
   description: string;
 }
@@ -111,6 +112,15 @@ const commandCategories: CommandCategory[] = [
     icon: LucideDollarSign,
     description: "Economy system commands",
     commands: ["balance", "givebalance", "daily", "memorymatch", "coinflip"],
+  },
+  {
+    title: "Extra",
+    icon: LucidePlus,
+    description: "Additional utility commands",
+    commands: [
+      "customrole", "autoresponder", "redeem",
+      "setup", "reset", "premium", "nuke", "vccontrol"
+    ],
   }
 ];
 
