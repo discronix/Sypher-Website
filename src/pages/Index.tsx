@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { LucideShieldCheck, LucideUsers, LucideTicket, LucideShieldAlert, LucideMusic, LucideUserCog, LucideClock, LucideChevronDown } from "lucide-react";
+import { LucideShieldCheck, LucideUsers, LucideTicket, LucideShieldAlert, LucideMusic, LucideUserCog, LucideClock, LucideChevronDown, LucideMenu, LucideX } from "lucide-react";
 import { Link } from "react-router-dom";
 import Commands from "@/components/Commands";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [isLegalOpen, setIsLegalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = {
     "Main": ["home", "commands", "premium"],
@@ -76,55 +77,109 @@ const Index = () => {
 
       <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/90 shadow-lg border-b border-white/20">
         <div className="container px-4 mx-auto">
-          <div className="flex items-center justify-center h-16 gap-8">
-            {navItems["Main"].map((section) => (
-              <button
-                key={section}
-                onClick={() => setActiveSection(section)}
-                className={`relative px-6 py-2 rounded-lg font-medium transition-all duration-300 ${
-                  activeSection === section 
-                  ? "text-blue-600" 
-                  : "text-gray-600 hover:text-gray-900"
-                }`}
-              >
-                {activeSection === section && (
-                  <motion.div
-                    layoutId="active-tab"
-                    className="absolute inset-0 bg-blue-50 rounded-lg"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                <span className="relative">{section.charAt(0).toUpperCase() + section.slice(1)}</span>
-              </button>
-            ))}
-            <div className="relative group">
-              <button
-                onClick={() => setIsLegalOpen(!isLegalOpen)}
-                className="px-6 py-2 rounded-lg font-medium transition-all duration-300 text-gray-600 hover:text-gray-900 flex items-center gap-2"
-              >
-                Legal
-                <LucideChevronDown className={`w-4 h-4 transition-transform duration-300 ${isLegalOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {isLegalOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="absolute top-full mt-2 w-48 rounded-xl bg-white shadow-xl py-2 border border-gray-100"
-                >
-                  {navItems["Legal"].map((item) => (
-                    <Link
-                      key={item}
-                      to={`/${item}`}
-                      className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
-                    >
-                      {item.charAt(0).toUpperCase() + item.slice(1)}
-                    </Link>
-                  ))}
-                </motion.div>
+          <div className="flex items-center justify-between h-16 md:justify-center md:gap-8">
+            <button
+              className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <LucideX className="w-6 h-6" />
+              ) : (
+                <LucideMenu className="w-6 h-6" />
               )}
+            </button>
+            <div className="hidden md:flex items-center gap-8">
+              {navItems["Main"].map((section) => (
+                <button
+                  key={section}
+                  onClick={() => setActiveSection(section)}
+                  className={`relative px-6 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    activeSection === section 
+                    ? "text-blue-600" 
+                    : "text-gray-600 hover:text-gray-900"
+                  }`}
+                >
+                  {activeSection === section && (
+                    <motion.div
+                      layoutId="active-tab"
+                      className="absolute inset-0 bg-blue-50 rounded-lg"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                  <span className="relative">{section.charAt(0).toUpperCase() + section.slice(1)}</span>
+                </button>
+              ))}
+              <div className="relative group">
+                <button
+                  onClick={() => setIsLegalOpen(!isLegalOpen)}
+                  className="px-6 py-2 rounded-lg font-medium transition-all duration-300 text-gray-600 hover:text-gray-900 flex items-center gap-2"
+                >
+                  Legal
+                  <LucideChevronDown className={`w-4 h-4 transition-transform duration-300 ${isLegalOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isLegalOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute top-full mt-2 w-48 rounded-xl bg-white shadow-xl py-2 border border-gray-100"
+                  >
+                    {navItems["Legal"].map((item) => (
+                      <Link
+                        key={item}
+                        to={`/${item}`}
+                        className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        {item.charAt(0).toUpperCase() + item.slice(1)}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </div>
             </div>
           </div>
+
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="md:hidden overflow-hidden bg-white border-t border-gray-100"
+              >
+                <div className="py-4 space-y-2">
+                  {navItems["Main"].map((section) => (
+                    <button
+                      key={section}
+                      onClick={() => {
+                        setActiveSection(section);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className={`w-full px-6 py-3 text-left font-medium transition-colors ${
+                        activeSection === section
+                          ? "bg-blue-50 text-blue-600"
+                          : "text-gray-600 hover:bg-gray-50"
+                      }`}
+                    >
+                      {section.charAt(0).toUpperCase() + section.slice(1)}
+                    </button>
+                  ))}
+                  <div className="border-t border-gray-100 pt-2">
+                    {navItems["Legal"].map((item) => (
+                      <Link
+                        key={item}
+                        to={`/${item}`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="block px-6 py-3 text-gray-600 hover:bg-gray-50 font-medium"
+                      >
+                        {item.charAt(0).toUpperCase() + item.slice(1)}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </nav>
 
