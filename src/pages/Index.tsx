@@ -26,7 +26,7 @@ const Index = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            src="https://images-ext-1.discordapp.net/external/VALP_6NuCDjaixXxwuqz5QM6hZ-nZZQosglbOuh9IXM/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1013771497157972008/895bc9e1e03c0bb00fef75f61444f919.png"
+            src="https://cdn.discordapp.com/attachments/1335595045780324382/1340555663973285948/1000439278_2.gif?ex=67b2c940&is=67b177c0&hm=96b7033de30ae1eb79545ffea832fd2d6fffe9427a1584a82ce7064f98bc6628"
             alt="Sypher Logo"
             className="w-32 h-32 mx-auto rounded-full border-4 border-white shadow-xl animate-float"
           />
