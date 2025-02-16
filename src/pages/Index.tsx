@@ -25,77 +25,103 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50">
-      <header className="relative overflow-hidden py-20 text-center">
-        <div className="container px-4 mx-auto">
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-400/20 blur-3xl -z-10" />
+      <header className="relative overflow-hidden py-24 text-center">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-3xl" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.8)_0%,transparent_100%)]" />
+        </div>
+        <div className="container px-4 mx-auto relative">
+          <div className="relative mb-8">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-2xl"
+            />
             <motion.img
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5 }}
               src="https://cdn.discordapp.com/attachments/1335595045780324382/1340555663973285948/1000439278_2.gif?ex=67b2c940&is=67b177c0&hm=96b7033de30ae1eb79545ffea832fd2d6fffe9427a1584a82ce7064f98bc6628"
               alt="Sypher Logo"
-              className="w-36 h-36 mx-auto rounded-full border-4 border-white shadow-2xl animate-float ring-4 ring-purple-200"
+              className="w-40 h-40 mx-auto rounded-full border-4 border-white shadow-2xl animate-float ring-8 ring-purple-200/50"
             />
           </div>
           <motion.h1
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="mt-10 text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+            className="mt-8 text-6xl md:text-7xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
           >
-            Sypher - Your Ultimate Discord Bot
+            Sypher
           </motion.h1>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="mt-6 text-xl text-gray-600 max-w-2xl mx-auto"
+            className="mt-6 text-2xl text-gray-600 max-w-2xl mx-auto font-medium"
           >
-            Powerful, Efficient, and Easy to Use. Enhance your Discord server today!
+            Your Ultimate Discord Bot
+          </motion.p>
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="mt-4 text-gray-500"
+          >
+            Powerful • Efficient • Easy to Use
           </motion.p>
         </div>
       </header>
 
-      <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/80 shadow-md py-4">
+      <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/90 shadow-lg border-b border-white/20">
         <div className="container px-4 mx-auto">
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex items-center justify-center h-16 gap-8">
             {navItems["Main"].map((section) => (
               <button
                 key={section}
                 onClick={() => setActiveSection(section)}
-                className={`px-6 py-2.5 rounded-lg font-medium transition-all duration-300 ${
+                className={`relative px-6 py-2 rounded-lg font-medium transition-all duration-300 ${
                   activeSection === section 
-                  ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg transform -translate-y-0.5" 
-                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                  ? "text-blue-600" 
+                  : "text-gray-600 hover:text-gray-900"
                 }`}
               >
-                {section.charAt(0).toUpperCase() + section.slice(1)}
+                {activeSection === section && (
+                  <motion.div
+                    layoutId="active-tab"
+                    className="absolute inset-0 bg-blue-50 rounded-lg"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                <span className="relative">{section.charAt(0).toUpperCase() + section.slice(1)}</span>
               </button>
             ))}
-            <div className="relative">
+            <div className="relative group">
               <button
                 onClick={() => setIsLegalOpen(!isLegalOpen)}
-                className="px-6 py-2.5 rounded-lg font-medium transition-all duration-300 text-gray-600 hover:text-gray-900 hover:bg-gray-100 flex items-center gap-2"
+                className="px-6 py-2 rounded-lg font-medium transition-all duration-300 text-gray-600 hover:text-gray-900 flex items-center gap-2"
               >
                 Legal
-                <LucideChevronDown className={`w-4 h-4 transition-transform ${isLegalOpen ? 'rotate-180' : ''}`} />
+                <LucideChevronDown className={`w-4 h-4 transition-transform duration-300 ${isLegalOpen ? 'rotate-180' : ''}`} />
               </button>
               {isLegalOpen && (
-                <div className="absolute top-full mt-2 w-48 rounded-lg bg-white shadow-lg py-2 animate-fade-in">
-                  <Link
-                    to="/terms"
-                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
-                  >
-                    Terms of Service
-                  </Link>
-                  <Link
-                    to="/privacy"
-                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
-                  >
-                    Privacy Policy
-                  </Link>
-                </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="absolute top-full mt-2 w-48 rounded-xl bg-white shadow-xl py-2 border border-gray-100"
+                >
+                  {navItems["Legal"].map((item) => (
+                    <Link
+                      key={item}
+                      to={`/${item}`}
+                      className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
+                    >
+                      {item.charAt(0).toUpperCase() + item.slice(1)}
+                    </Link>
+                  ))}
+                </motion.div>
               )}
             </div>
           </div>
