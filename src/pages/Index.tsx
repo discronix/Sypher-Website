@@ -1,11 +1,17 @@
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { LucideShieldCheck, LucideUsers, LucideTicket, LucideShieldAlert, LucideMusic, LucideUserCog, LucideClock } from "lucide-react";
+import { LucideShieldCheck, LucideUsers, LucideTicket, LucideShieldAlert, LucideMusic, LucideUserCog, LucideClock, LucideChevronDown } from "lucide-react";
+import { Link } from "react-router-dom";
 import Commands from "@/components/Commands";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("home");
+  const [isLegalOpen, setIsLegalOpen] = useState(false);
+
+  const navItems = {
+    "Main": ["home", "commands", "premium"],
+    "Legal": ["terms", "privacy"]
+  };
 
   const features = [
     { icon: LucideShieldCheck, title: "Fastest Antinuke", description: "Protect your server from malicious attacks and unauthorized access with our advanced Anti-Nuke system." },
@@ -19,7 +25,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50">
-      {/* Header */}
       <header className="relative overflow-hidden py-20 text-center">
         <div className="container px-4 mx-auto">
           <div className="relative">
@@ -52,26 +57,51 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Navigation */}
       <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/80 shadow-md py-4">
-        <div className="container px-4 mx-auto flex justify-center space-x-6">
-          {["home", "commands", "premium", "terms"].map((section) => (
-            <button
-              key={section}
-              onClick={() => setActiveSection(section)}
-              className={`px-6 py-2.5 rounded-lg font-medium transition-all duration-300 ${
-                activeSection === section 
-                ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg transform -translate-y-0.5" 
-                : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-              }`}
-            >
-              {section.charAt(0).toUpperCase() + section.slice(1)}
-            </button>
-          ))}
+        <div className="container px-4 mx-auto">
+          <div className="flex flex-wrap justify-center gap-6">
+            {navItems["Main"].map((section) => (
+              <button
+                key={section}
+                onClick={() => setActiveSection(section)}
+                className={`px-6 py-2.5 rounded-lg font-medium transition-all duration-300 ${
+                  activeSection === section 
+                  ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg transform -translate-y-0.5" 
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                }`}
+              >
+                {section.charAt(0).toUpperCase() + section.slice(1)}
+              </button>
+            ))}
+            <div className="relative">
+              <button
+                onClick={() => setIsLegalOpen(!isLegalOpen)}
+                className="px-6 py-2.5 rounded-lg font-medium transition-all duration-300 text-gray-600 hover:text-gray-900 hover:bg-gray-100 flex items-center gap-2"
+              >
+                Legal
+                <LucideChevronDown className={`w-4 h-4 transition-transform ${isLegalOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {isLegalOpen && (
+                <div className="absolute top-full mt-2 w-48 rounded-lg bg-white shadow-lg py-2 animate-fade-in">
+                  <Link
+                    to="/terms"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                  >
+                    Terms of Service
+                  </Link>
+                  <Link
+                    to="/privacy"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                  >
+                    Privacy Policy
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </nav>
 
-      {/* Content Sections */}
       <AnimatePresence mode="wait">
         {activeSection === "home" && (
           <motion.section
@@ -209,11 +239,16 @@ const Index = () => {
         )}
       </AnimatePresence>
 
-      {/* Footer */}
       <footer className="mt-20 py-8 bg-gradient-to-r from-blue-500/5 to-purple-500/5 border-t border-gray-200">
-        <p className="text-center text-gray-600">
-          © 2024 Sypher | Developed with passion by Doremxn
-        </p>
+        <div className="container px-4 mx-auto">
+          <p className="text-center text-gray-600">
+            © 2024 Sypher | Developed with passion by Doremxn
+          </p>
+          <div className="flex justify-center gap-4 mt-4">
+            <Link to="/terms" className="text-gray-600 hover:text-gray-900">Terms</Link>
+            <Link to="/privacy" className="text-gray-600 hover:text-gray-900">Privacy</Link>
+          </div>
+        </div>
       </footer>
     </div>
   );
