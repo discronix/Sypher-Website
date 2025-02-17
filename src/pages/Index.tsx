@@ -77,7 +77,7 @@ const Index = () => {
 
       <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/90 shadow-lg border-b border-white/20">
         <div className="container px-4 mx-auto">
-          <div className="flex items-center justify-between h-16 md:justify-center md:gap-8">
+          <div className="flex items-center justify-end h-16">
             <button
               className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -88,12 +88,12 @@ const Index = () => {
                 <LucideMenu className="w-6 h-6" />
               )}
             </button>
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-6">
               {navItems["Main"].map((section) => (
                 <button
                   key={section}
                   onClick={() => setActiveSection(section)}
-                  className={`relative px-6 py-2 rounded-lg font-medium transition-all duration-300 ${
+                  className={`relative px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
                     activeSection === section 
                     ? "text-blue-600" 
                     : "text-gray-600 hover:text-gray-900"
@@ -112,7 +112,7 @@ const Index = () => {
               <div className="relative group">
                 <button
                   onClick={() => setIsLegalOpen(!isLegalOpen)}
-                  className="px-6 py-2 rounded-lg font-medium transition-all duration-300 text-gray-600 hover:text-gray-900 flex items-center gap-2"
+                  className="px-4 py-2 rounded-lg font-medium transition-all duration-300 text-gray-600 hover:text-gray-900 flex items-center gap-2"
                 >
                   Legal
                   <LucideChevronDown className={`w-4 h-4 transition-transform duration-300 ${isLegalOpen ? 'rotate-180' : ''}`} />
@@ -122,7 +122,7 @@ const Index = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full mt-2 w-48 rounded-xl bg-white shadow-xl py-2 border border-gray-100"
+                    className="absolute right-0 top-full mt-2 w-48 rounded-xl bg-white shadow-xl py-2 border border-gray-100"
                   >
                     {navItems["Legal"].map((item) => (
                       <Link
