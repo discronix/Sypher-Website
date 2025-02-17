@@ -26,6 +26,70 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50">
+      <div className="fixed top-4 right-4 z-50 md:hidden">
+        <button
+          className="p-2 rounded-lg bg-white/90 shadow-lg border border-gray-200 text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? (
+            <LucideX className="w-6 h-6" />
+          ) : (
+            <LucideMenu className="w-6 h-6" />
+          )}
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              className="absolute right-0 top-0 h-full w-64 bg-white shadow-xl"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="p-4 space-y-2">
+                {navItems["Main"].map((section) => (
+                  <button
+                    key={section}
+                    onClick={() => {
+                      setActiveSection(section);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`w-full px-4 py-3 text-left rounded-lg font-medium transition-colors ${
+                      activeSection === section
+                        ? "bg-blue-50 text-blue-600"
+                        : "text-gray-600 hover:bg-gray-50"
+                    }`}
+                  >
+                    {section.charAt(0).toUpperCase() + section.slice(1)}
+                  </button>
+                ))}
+                <div className="border-t border-gray-100 pt-2 mt-2">
+                  {navItems["Legal"].map((item) => (
+                    <Link
+                      key={item}
+                      to={`/${item}`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block px-4 py-3 text-gray-600 hover:bg-gray-50 font-medium rounded-lg"
+                    >
+                      {item.charAt(0).toUpperCase() + item.slice(1)}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <header className="relative overflow-hidden py-24 text-center">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-3xl" />
@@ -75,20 +139,10 @@ const Index = () => {
         </div>
       </header>
 
-      <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/90 shadow-lg border-b border-white/20">
+      <nav className="sticky top-0 z-30 hidden md:block backdrop-blur-md bg-white/90 shadow-lg border-b border-white/20">
         <div className="container px-4 mx-auto">
           <div className="flex items-center justify-end h-16">
-            <button
-              className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? (
-                <LucideX className="w-6 h-6" />
-              ) : (
-                <LucideMenu className="w-6 h-6" />
-              )}
-            </button>
-            <div className="hidden md:flex items-center gap-6">
+            <div className="flex items-center gap-6">
               {navItems["Main"].map((section) => (
                 <button
                   key={section}
@@ -138,48 +192,6 @@ const Index = () => {
               </div>
             </div>
           </div>
-
-          <AnimatePresence>
-            {isMobileMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="md:hidden overflow-hidden bg-white border-t border-gray-100"
-              >
-                <div className="py-4 space-y-2">
-                  {navItems["Main"].map((section) => (
-                    <button
-                      key={section}
-                      onClick={() => {
-                        setActiveSection(section);
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className={`w-full px-6 py-3 text-left font-medium transition-colors ${
-                        activeSection === section
-                          ? "bg-blue-50 text-blue-600"
-                          : "text-gray-600 hover:bg-gray-50"
-                      }`}
-                    >
-                      {section.charAt(0).toUpperCase() + section.slice(1)}
-                    </button>
-                  ))}
-                  <div className="border-t border-gray-100 pt-2">
-                    {navItems["Legal"].map((item) => (
-                      <Link
-                        key={item}
-                        to={`/${item}`}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="block px-6 py-3 text-gray-600 hover:bg-gray-50 font-medium"
-                      >
-                        {item.charAt(0).toUpperCase() + item.slice(1)}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </nav>
 
